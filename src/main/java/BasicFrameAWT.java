@@ -34,23 +34,30 @@ import org.geotools.swing.data.JFileDataStoreChooser;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.Polygon;
 import projectComponents.*;
-
+/**
+ * The `BasicFrameAWT` class is the main entry point for the Graphical Objects Tool application.
+ * It extends JFrame and provides a graphical user interface for creating, managing,
+ * and exporting various shapes such as points, lines, polygons, and more.
+ */
 public class BasicFrameAWT extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final int FRAME_WIDTH = 1000;
-    private static final int FRAME_HEIGHT = 1000;
+    private static final int FRAME_WIDTH = 800;
+    private static final int FRAME_HEIGHT = 600;
 
     private double scale = 1.0; // Initial scale factor
-    private double translateX = 0; // Used to adjust the drawing position
-    private double translateY = 0;
-    private final Map<String, ShapeManager> shapeManagers = new HashMap<>();
-    private final DatabaseManager databaseManager = new DatabaseManager();
-    private final JLabel infoLabel = new JLabel("Welcome to the Graphical Objects Tool!");
-
-    private ShapeManager currentShapeManager;
-    private ActionMode currentMode = ActionMode.CREATE;
-
+    private double translateX = 0; // X-axis translation for panning
+    private double translateY = 0; // Y-axis translation for panning
+    private final Map<String, ShapeManager> shapeManagers = new HashMap<>(); // Manages different types of shapes
+    private final DatabaseManager databaseManager = new DatabaseManager(); // Handles database interactions
+    private final JLabel infoLabel = new JLabel("Welcome to the Graphical Objects Tool!"); // Status label
+    private ShapeManager currentShapeManager; // The currently active ShapeManager
+    private ActionMode currentMode = ActionMode.CREATE; //Current interaction mode (CREATE, SELECT, etc.)
+    
+    /**
+     * Constructs the main application frame.
+     * Initialises the GUI components, sets up the layout, and prepares the application.
+     */
     public BasicFrameAWT() {
         super();
 
@@ -60,12 +67,12 @@ public class BasicFrameAWT extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(0, 0, 139)); // Dark Blue Background
-
-        // Initialize shape managers
+        getContentPane().setBackground(new Color(0, 0, 139)); 
+        
+        // Initialise shape managers
         initializeShapeManagers();
 
-        // Set Application Logo
+        // Set Application logo 
         setApplicationLogo();
 
         // Add MenuBar
@@ -84,14 +91,18 @@ public class BasicFrameAWT extends JFrame {
         this.infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(this.infoLabel, BorderLayout.SOUTH);
     }
-
+    
+    /**
+     * Creates the menu bar with options for file operations, help, and more.
+     */
     private void createMenuBar() {
         JMenuBar bar = new JMenuBar();
-
         JMenu fileMenu = new JMenu("File");
-
+        
+        // Add 'New' menu item
         JMenuItem newMenuItem = new JMenuItem("New");
         newMenuItem.addActionListener(e -> {
+        	 // Reset all shapes in each shape manager
             for (ShapeManager shapeManager : shapeManagers.values()) {
                 shapeManager.newFrame();
             }
@@ -101,7 +112,7 @@ public class BasicFrameAWT extends JFrame {
 
         JMenu importMenuItem = new JMenu("import");
         fileMenu.add(importMenuItem);
-
+     // Add import options
         JMenuItem importFromShapefile = new JMenuItem("... from Shapefile");
         importMenuItem.add(importFromShapefile);
         importFromShapefile.addActionListener(e -> {
