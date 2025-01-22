@@ -8,10 +8,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * The {@code RectangleManager} class manages the creation, selection, deletion, movement, and rendering of rectangles.
+ * <p>
+ * This class extends {@code ShapeManager} and provides functionality specific to rectangles. It supports operations
+ * such as dynamically creating, selecting, deleting, and moving rectangles, as well as exporting them as JTS
+ * {@code Polygon} objects or CSV-formatted data.
+ */
 
 public class RectangleManager extends ShapeManager {
+	 /** List of all rectangles managed by this instance. */
     protected final List<Rectangle> rectangles = new ArrayList<>();
+    /** List of currently selected rectangles. */
     protected List<Rectangle> selectedRectangles = new ArrayList<>();
+    /**
+     * Adds a rectangle to the manager.
+     *
+     * @param rectangle the rectangle to be added.
+     */
 
     public void addShape(Rectangle rectangle) {
         this.rectangles.add(rectangle);
@@ -94,6 +108,11 @@ public class RectangleManager extends ShapeManager {
         }
 
     }
+    /**
+     * Converts all managed rectangles into JTS {@code Polygon} objects for export or analysis.
+     *
+     * @return a list of JTS {@code Polygon} geometries representing the rectangles.
+     */
 
     public List<org.locationtech.jts.geom.Polygon> getGeometries() {
         GeometryFactory factory = new GeometryFactory();

@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * The `DatabaseManager` class handles interactions with a MySQL database.
+ * It provides methods to establish connections, insert and retrieve data,
+ * and manage a table for graphical object descriptions.
+ */
 
 public class DatabaseManager {
     private String dbName = "graphical_objects";
@@ -14,7 +19,13 @@ public class DatabaseManager {
     private Connection connection;
     private boolean isConnected = false;
 
-    // Establishes a connection to the database
+    /**
+     * Establishes a connection to the database for exporting data.
+     * If the specified database does not exist, it creates the database and initializes the table.
+     *
+     * @param dbName   the name of the database to connect to (if null or empty, a default name is used).
+     * @param password the password for the database user.
+     */
     public void exportConnect(String dbName, String password) {
         if (dbName != null && (!dbName.trim().isEmpty())) this.dbName = dbName;
         else this.dbName = "graphical_objects";
@@ -38,6 +49,12 @@ public class DatabaseManager {
             isConnected = false;
         }
     }
+    /**
+     * Establishes a connection to the database for importing data.
+     *
+     * @param dbName   the name of the database to connect to (if null or empty, a default name is used).
+     * @param password the password for the database user.
+     */
 
     public void importConnect(String dbName, String password) {
         if (dbName != null && (!dbName.trim().isEmpty())) this.dbName = dbName;
@@ -52,8 +69,10 @@ public class DatabaseManager {
             isConnected = false;
         }
     }
-
-    // Closes the database connection
+    /**
+     * Closes the current database connection, if any.
+     * Ensures proper resource cleanup.
+     */
     public void abortConnection() {
         if (connection != null) {
             try {
@@ -65,7 +84,12 @@ public class DatabaseManager {
             }
         }
     }
-
+    /**
+     * Inserts object data into the database.
+     * Each line of the input string represents an object with its type and description.
+     *
+     * @param objectInfo a string containing object data in the format "type,description" per line.
+     */
     public void insertObject(String objectInfo) {
         String[] lines = objectInfo.trim().split("\n");
         for (String line : lines) {
@@ -85,6 +109,11 @@ public class DatabaseManager {
             }
         }
     }
+    /**
+     * Retrieves all objects from the database table.
+     *
+     * @return a list of strings, where each string represents an object in the format "type,description".
+     */
 
     public List<String> getAllObjects() {
         List<String> objects = new ArrayList<>();
@@ -107,6 +136,9 @@ public class DatabaseManager {
 
         return objects;
     }
+    /**
+     * Clears all data from the database table.
+     */
 
     public void clearTable() {
         String clearTableSQL = "DELETE FROM " + tableName;
@@ -116,10 +148,21 @@ public class DatabaseManager {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    /**
+     * Checks if the database is currently connected.
+     *
+     * @return true if connected, false otherwise.
+     */
 
     public boolean isConnected() {
         return this.isConnected;
     }
+    /**
+     * Constructs the URL for connecting to a specific database.
+     *
+     * @param dbName the name of the database.
+     * @return the JDBC URL for the database.
+     */
 
     private String getDBurl(String dbName) {
         return "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&allowPublicKeyRetrieval=true";

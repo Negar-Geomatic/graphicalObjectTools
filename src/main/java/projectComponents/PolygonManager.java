@@ -8,11 +8,16 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The `PolygonManager` class manages the creation, selection, deletion, movement, and rendering of polygons.
+ * <p>
+ * This class extends `ShapeManager` and provides specific implementations for handling polygons.
+ * It also supports exporting polygons as geometrical `Polygon` objects or CSV-formatted data.
+ */
 public class PolygonManager extends ShapeManager {
-    protected final List<Polygon> polygons = new ArrayList<>();
-    protected List<Point> currentPoints = new ArrayList<>();
-    protected List<Polygon> selectedPolygons = new ArrayList<>();
+    protected final List<Polygon> polygons = new ArrayList<>();// List of all polygons managed by this instance
+    protected List<Point> currentPoints = new ArrayList<>();// Points being used to create a new polygon
+    protected List<Polygon> selectedPolygons = new ArrayList<>();// List of currently selected polygons
 
     @Override
     public void addShape(List<Double> xValues, List<Double> yValues) {
@@ -110,6 +115,11 @@ public class PolygonManager extends ShapeManager {
             g2d.drawPolyline(xPoints, yPoints, xPoints.length);
         }
     }
+    /**
+     * Converts all managed polygons into geometrical `Polygon` objects for export or analysis.
+     *
+     * @return a list of `Polygon` geometries representing the polygons.
+     */
 
     public List<org.locationtech.jts.geom.Polygon> getGeometries() {
         GeometryFactory factory = new GeometryFactory();
@@ -126,7 +136,7 @@ public class PolygonManager extends ShapeManager {
             for (int i = 0; i < numPoints; i++) {
                 coordinates[i] = new Coordinate(xPoints[i], yPoints[i]);
             }
-            coordinates[numPoints] = coordinates[0];
+            coordinates[numPoints] = coordinates[0];// Close the polygon
 
             org.locationtech.jts.geom.Polygon newPolygon = factory.createPolygon(coordinates);
             geometries.add(newPolygon);

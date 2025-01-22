@@ -7,6 +7,12 @@ import java.util.List;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
+/**
+ * The `PointManager` class manages the creation, selection, deletion, movement, and rendering of points.
+ * <p>
+ * This class extends `ShapeManager` and provides specific implementations for managing points
+ * as graphical shapes within the application.
+ */
 
 public class PointManager extends ShapeManager {
     private final List<Point> points = new ArrayList<>();
@@ -74,6 +80,11 @@ public class PointManager extends ShapeManager {
             g2d.drawOval(point.x - 5, point.y - 5, 10, 10);
         }
     }
+    /**
+     * Converts all managed points into geometrical `Point` objects for export or analysis.
+     *
+     * @return a list of `Point` geometries representing the points.
+     */
 
     public List<org.locationtech.jts.geom.Point> getGeometries() {
         GeometryFactory factory = new GeometryFactory();

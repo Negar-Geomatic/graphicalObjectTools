@@ -3,7 +3,12 @@ package projectComponents;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
-
+/**
+ * The `CircleManager` class extends `EllipseManager` to specifically manage circles.
+ * <p>
+ * A circle is treated as a special case of an ellipse where the width and height are equal (radius * 2).
+ * This class provides functionality for creating, selecting, deleting, and drawing circles.
+ */
 public class CircleManager extends EllipseManager {
 
     @Override

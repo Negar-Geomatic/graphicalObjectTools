@@ -2,7 +2,13 @@ package projectComponents;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-
+/**
+ * The {@code SquareManager} class manages the creation, selection, deletion, movement, and rendering of squares.
+ * <p>
+ * It extends the {@code RectangleManager} class, providing specific logic for ensuring that all shapes managed
+ * are squares, where width equals height. The class also supports exporting squares as CSV-formatted data.
+ * </p>
+ */
 public class SquareManager extends RectangleManager {
 
     @Override

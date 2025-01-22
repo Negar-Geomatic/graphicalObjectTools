@@ -58,6 +58,7 @@ public class BasicFrameAWT extends JFrame {
      * Constructs the main application frame.
      * Initialises the GUI components, sets up the layout, and prepares the application.
      */
+ // Constructor implementation
     public BasicFrameAWT() {
         super();
 
@@ -520,6 +521,11 @@ public class BasicFrameAWT extends JFrame {
 
         currentShapeManager = shapeManagers.get("Point");
     }
+    /**
+     * The entry point of the application. It initializes and displays the main application frame.
+     * 
+     * @param args the command-line arguments (not used)
+     */
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -693,6 +699,9 @@ public class BasicFrameAWT extends JFrame {
     }
 
     private class DrawingPanel extends JPanel {
+    	/**
+         * Constructs the DrawingPanel and sets up mouse listeners for interactions.
+         */
 
         public DrawingPanel() {
             addMouseListener(new MouseAdapter() {
@@ -773,6 +782,11 @@ public class BasicFrameAWT extends JFrame {
             });
         }
         @Override
+        /**
+         * Paints the shapes and handles transformations such as scaling and panning.
+         * 
+         * @param g the `Graphics` object used for rendering
+         */
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;

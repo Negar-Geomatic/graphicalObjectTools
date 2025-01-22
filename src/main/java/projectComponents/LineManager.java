@@ -8,6 +8,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+/**
+ * The `LineManager` class is responsible for managing lines in a graphical application.
+ * <p>
+ * This class provides functionality for creating, selecting, deleting, moving, and rendering lines.
+ * It also supports exporting lines as geometrical `LineString` representations or CSV-formatted data.
+ */
 
 public class LineManager extends ShapeManager {
     private final List<Line> lines = new ArrayList<>();
@@ -81,6 +87,11 @@ public class LineManager extends ShapeManager {
             g2d.drawLine(startPoint.x, startPoint.y, currentMousePosition.x, currentMousePosition.y);
         }
     }
+    /**
+     * Converts all managed lines into geometrical `LineString` objects for export or analysis.
+     *
+     * @return a list of `LineString` geometries representing the lines.
+     */
 
     public List<org.locationtech.jts.geom.LineString> getGeometries() {
         GeometryFactory factory = new GeometryFactory();

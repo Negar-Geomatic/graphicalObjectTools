@@ -2,6 +2,13 @@ package projectComponents;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+/**
+ * The {@code TriangleManager} class manages the creation, selection, deletion, and rendering of triangles.
+ * <p>
+ * It extends the {@code PolygonManager} class and provides specific functionality for handling triangles.
+ * Triangles are created by clicking three times to define the three vertices.
+ * </p>
+ */
 
 public class TriangleManager extends PolygonManager {
 

@@ -9,11 +9,20 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * The `EllipseManager` class manages the creation, selection, deletion, and movement of ellipses.
+ * <p>
+ * This class extends `ShapeManager` and provides functionality for drawing, manipulating, and exporting ellipses.
+ */
 
 public class EllipseManager extends ShapeManager {
     protected final List<Ellipse2D> ellipses = new ArrayList<>();
     protected List<Ellipse2D> selectedEllipses = new ArrayList<>();
-
+    /**
+     * Adds a new ellipse to the manager.
+     *
+     * @param ellipse2d the `Ellipse2D` object to be added.
+     */
     public void addShape(Ellipse2D ellipse2d) {
         this.ellipses.add(ellipse2d);
     }
@@ -103,6 +112,13 @@ public class EllipseManager extends ShapeManager {
             ));
         }
     }
+    /**
+     * Converts all managed ellipses into `Polygon` geometries for export or analysis.
+     * <p>
+     * Each ellipse is approximated using a specified number of points to create a polygon.
+     *
+     * @return a list of `Polygon` geometries representing the ellipses.
+     */
 
     public List<org.locationtech.jts.geom.Polygon> getGeometries() {
         GeometryFactory factory = new GeometryFactory();

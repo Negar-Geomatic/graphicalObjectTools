@@ -9,11 +9,20 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The `ArcManager` class manages the creation, selection, deletion, and movement of arc-shaped graphical objects.
+ * <p>
+ * This class extends the `ShapeManager` class and provides specific implementations for managing `Arc2D` objects.
+ * It also supports exporting arcs to geometrical representations and CSV format.
+ */
 public class ArcManager extends ShapeManager {
     private final List<Arc2D> arcs = new ArrayList<>();
     private List<Arc2D> selectedArcs = new ArrayList<>();
-
+    /**
+     * Adds a new arc to the manager.
+     *
+     * @param arc2d the `Arc2D` object to be added.
+     */
     public void addShape(Arc2D arc2d) {
         this.arcs.add(arc2d);
     }
@@ -104,6 +113,13 @@ public class ArcManager extends ShapeManager {
             ));
         }
     }
+    /**
+     * Converts all managed arcs into `LineString` geometries for export or analysis.
+     * <p>
+     * Each arc is approximated using a specified number of points to create a `LineString`.
+     *
+     * @return a list of `LineString` geometries representing the arcs.
+     */
 
     public List<LineString> getGeometries() {
         GeometryFactory factory = new GeometryFactory();
